@@ -92,4 +92,8 @@ void Game::WordFamily(char guess, list<string> words) {
     } else {
         this->potWords = emptyWords;
     }
+    //.find
+    //loop through word, add indicies to word if it exists
+    //.find(start, end, letter), .find(prevStart, end, letter)
+    //make mpa with string or array of digits where letter shows up, then add word to value with same string
 }
