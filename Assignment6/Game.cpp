@@ -59,13 +59,37 @@ void Game::Guess() {
 }
 
 void Game::WordFamily(char guess, list<string> words) {
-    list<string> boiledWords;
+    int WordFam[wordLength+1]; //tracks number of words in each category - guess in each index, then no guess
+    list<string> boiledWords; //tracks words that contain the letter
+    list<string> emptyWords; //tracks words that don't contain the letter
+    list<string> returnWords; //The list of strings we'll return
+    for (int i = 0; i < wordLength+1; i++) {
+        WordFam[i] = 0;
+    }
     for (string word : words) {
         int Found = word.find(guess);
         if (Found != string::npos) {
             boiledWords.push_back(word);
+            WordFam[Found] += 1;
+        } else {
+            emptyWords.push_back(word);
+            WordFam[wordLength] += 1;
         }
     }
     cout << "Num words: " << boiledWords.size() << endl;
-    this->potWords = boiledWords;
+    cout << "Biggest Subgroup Size: " << *max_element(WordFam , WordFam+wordLength+1) << endl;
+    int* targetPtr = find(&WordFam[0], WordFam + wordLength+1, *max_element(WordFam , WordFam+wordLength+1));
+    int targetIndex = targetPtr-WordFam;
+    cout << targetIndex << " " << wordLength << endl;
+    if (targetIndex < wordLength) {
+        for (string word : boiledWords) {
+            int Found = word.find(guess);
+            if (Found == targetIndex) {
+                returnWords.push_back(word);
+            }
+        }
+        this->potWords = returnWords;
+    } else {
+        this->potWords = emptyWords;
+    }
 }
