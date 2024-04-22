@@ -3,6 +3,8 @@
 //
 #include "Game.h"
 #include <algorithm>
+#include <string>
+#include <iostream>
 
 //CONSTRUCTOR
 Game::Game(int wordLength, bool showWordCount, list<string> potWords) {
@@ -20,7 +22,7 @@ void Game::GetInfo() {
     for (char letter : guessedLetters) {
         cout << (char)toupper(letter) << " ";
     }
-    if (showWordCount == true) {
+    if (showWordCount) {
         cout << "\nWords Remaining: " << potWords.size() << endl;
     }
     for (char letters : wordShowcase) {
@@ -50,6 +52,7 @@ void Game::Guess() {
             }
         }
         trueGuess = guess[0];
+        cout << trueGuess << "\n";
         guessedLetters.push_back(trueGuess);
     WordFamily(trueGuess, potWords);
         numGuesses--;
@@ -58,11 +61,11 @@ void Game::Guess() {
 void Game::WordFamily(char guess, list<string> words) {
     list<string> boiledWords;
     for (string word : words) {
-        if (word.find(guess) != std::string::npos) {
+        int Found = word.find(guess);
+        if (Found != string::npos) {
             boiledWords.push_back(word);
         }
     }
     cout << "Num words: " << boiledWords.size() << endl;
-    potWords = boiledWords;
+    this->potWords = boiledWords;
 }
-
