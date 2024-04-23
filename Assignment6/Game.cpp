@@ -84,7 +84,7 @@ void Game::WordFamily(char guess, list<string> words) {
                 indexKey.clear();
             }
             //marks where the letter shows up in the word
-            if (word[i] == guess) {
+            if (word[i] == tolower(guess)) {
                 indexKey.append(to_string(i));
             }
             //okay this next part is kinda messy and can probably be improved later
@@ -95,28 +95,47 @@ void Game::WordFamily(char guess, list<string> words) {
                     continue;
                 }
                 //that should be fine for words that are empty, right?
-                wordFamilies[indexKey] = word;
-                //not sure how to add words to the list of strings
-            }
-            //i'll add potential code for the deciding part down there later, but here's my general idea
-        }
-    }
-    cout << "Num words: " << boiledWords.size() << endl;
-    cout << "Biggest Subgroup Size: " << *max_element(WordFam , WordFam+wordLength+1) << endl;
-    int* targetPtr = find(&WordFam[0], WordFam + wordLength+1, *max_element(WordFam , WordFam+wordLength+1));
-    int targetIndex = targetPtr-WordFam;
-    cout << targetIndex << " " << wordLength << endl;
-    if (targetIndex < wordLength) {
-        for (string word : boiledWords) {
-            int Found = word.find(guess);
-            if (Found == targetIndex) {
-                returnWords.push_back(word);
+                wordFamilies[indexKey].push_back(word);
+                //this above code will push into the temp list of strings for that value
             }
         }
-        this->potWords = returnWords;
-    } else {
-        this->potWords = emptyWords;
     }
+    int maxWords = 0;
+    string selectedFamily;
+    for (auto family: wordFamilies) {
+        if (family.second.size() > maxWords) {
+            maxWords = family.second.size();
+            selectedFamily = family.first;
+        }
+    }
+    if (emptyWords.size() > wordFamilies[selectedFamily].size()) {
+        returnWords = emptyWords;
+    }
+    else if (emptyWords.size() == wordFamilies[selectedFamily].size()){
+        //randomly choose between the two? unlikely but might happen
+    }
+    else {
+        returnWords = wordFamilies[selectedFamily];
+    }
+    // cout << "Num words: " << boiledWords.size() << endl;
+    cout << "Num words: " << words.size() << endl;
+    // cout << "Biggest Subgroup Size: " << *max_element(WordFam , WordFam+wordLength+1) << endl;
+    cout << "Biggest Subgroup Size: " << returnWords.size() << endl;
+    // int* targetPtr = find(&WordFam[0], WordFam + wordLength+1, *max_element(WordFam , WordFam+wordLength+1));
+    // int targetIndex = targetPtr-WordFam;
+    // cout << targetIndex << " " << wordLength << endl;
+    // if (targetIndex < wordLength) {
+    //     for (string word : boiledWords) {
+    //         int Found = word.find(guess);
+    //         if (Found == targetIndex) {
+    //             returnWords.push_back(word);
+    //         }
+    //     }
+    //     this->potWords = returnWords;
+    // } else {
+    //     this->potWords = emptyWords;
+    // }
+    this->potWords = returnWords;
     //.find
     //loop through word, add indicies to word if it exists
     //.find(start, end, letter), .find(prevStart, end, letter)
