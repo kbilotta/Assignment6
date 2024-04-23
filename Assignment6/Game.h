@@ -7,6 +7,7 @@
 #include <iostream>
 #include <list>
 #include <array>
+#include <vector>
 
 using namespace std;
 
@@ -18,11 +19,12 @@ private:
     // int numGuesses = 15;
     list<char> guessedLetters;
     //char wordShowcase[wordLength];
-    list<char> wordShowcase;
     list<string> potWords;
     void WordFamily(char letter, list<string> words);
 public:
     int numGuesses = 15;
+    // list<char> wordShowcase;
+    vector<char> wordShowcase;
 
     Game(int wordLength, bool showWordCount, list<string> potWords);
 

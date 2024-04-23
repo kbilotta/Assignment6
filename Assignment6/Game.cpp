@@ -108,14 +108,16 @@ void Game::WordFamily(char guess, list<string> words) {
             selectedFamily = family.first;
         }
     }
-    if (emptyWords.size() > wordFamilies[selectedFamily].size()) {
+    if (emptyWords.size() >= wordFamilies[selectedFamily].size()) {
         returnWords = emptyWords;
-    }
-    else if (emptyWords.size() == wordFamilies[selectedFamily].size()){
-        //randomly choose between the two? unlikely but might happen
     }
     else {
         returnWords = wordFamilies[selectedFamily];
+        //below code should update wordShowcase with word family
+        //don't need it in the above statement if nothing changes
+        for (int i = 0; i < selectedFamily.length()-1; i++) {
+            wordShowcase[selectedFamily[i]] = toupper(guess);
+        }
     }
     // cout << "Num words: " << boiledWords.size() << endl;
     cout << "Num words: " << words.size() << endl;
