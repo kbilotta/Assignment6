@@ -13,7 +13,8 @@ Game::Game(int wordLength, bool showWordCount, list<string> potWords) {
     this->showWordCount = showWordCount;
     this->potWords = potWords;
     for (int i = 0; i < wordLength; i++) {
-        wordShowcase.push_back('_');
+        this->wordShowcase.push_back('_');
+        cout <<"I have made the showcase\n";
     }
 }
 
@@ -26,7 +27,7 @@ void Game::GetInfo() {
     if (showWordCount) {
         cout << "\nWords Remaining: " << potWords.size() << endl;
     }
-    for (char letters : wordShowcase) {
+    for (char letters : this->wordShowcase) {
         cout << letters << " ";
     }
     cout << "\n";
@@ -78,7 +79,7 @@ void Game::WordFamily(char guess, list<string> words) {
         //     emptyWords.push_back(word);
         //     WordFam[wordLength] += 1;
         // }
-        for (int i  = 0; i < word.length()-1; i++) { //use i for indexing
+        for (int i  = 0; i < word.length(); i++) { //use i for indexing
             //resets the word family indexes at each new word
             if (i == 0) {
                 indexKey.clear();
@@ -89,14 +90,14 @@ void Game::WordFamily(char guess, list<string> words) {
             }
             //okay this next part is kinda messy and can probably be improved later
             //at last char, places word in map
-            if (i + 1 >= word.length()-1) {
+            if (i + 1 >= word.length()) {
                 if (indexKey.empty()) {
                     emptyWords.push_back(word);
-                    continue;
+                    //that should be fine for words that are empty, right?
+                } else {
+                    wordFamilies[indexKey].push_back(word);
+                    //this above code will push into the temp list of strings for that value}
                 }
-                //that should be fine for words that are empty, right?
-                wordFamilies[indexKey].push_back(word);
-                //this above code will push into the temp list of strings for that value
             }
         }
     }
@@ -108,15 +109,16 @@ void Game::WordFamily(char guess, list<string> words) {
             selectedFamily = family.first;
         }
     }
+    // The following section does not ever seem to enter the else loop.
     if (emptyWords.size() >= wordFamilies[selectedFamily].size()) {
         returnWords = emptyWords;
-    }
-    else {
+    } else {
         returnWords = wordFamilies[selectedFamily];
         //below code should update wordShowcase with word family
         //don't need it in the above statement if nothing changes
-        for (int i = 0; i < selectedFamily.length()-1; i++) {
-            wordShowcase[int(selectedFamily[i])] = toupper(guess);
+        for (int i = 0; i < selectedFamily.length(); i++) {
+            this->wordShowcase[stoi(selectedFamily.substr(i,1))] = toupper(guess);
+            cout << "Showcase Index " << stoi(selectedFamily.substr(i,1)) << " Fill with " << toupper(guess) <<"\n";
         }
     }
     // cout << "Num words: " << boiledWords.size() << endl;
