@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/danie/Desktop/Senior Year/Spring 2024/CSC 3320/Assignment6/FromGit/Assignment6
+# Install script for directory: C:/Users/theco/OneDrive/Desktop/Programming Languages/Assignment6/Assignment6
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/danie/Desktop/Senior Year/Spring 2024/CSC 3320/Assignment6/FromGit/Assignment6/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/theco/OneDrive/Desktop/Programming Languages/Assignment6/Assignment6/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

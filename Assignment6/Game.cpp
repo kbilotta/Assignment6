@@ -8,7 +8,7 @@
 #include <map>
 
 //CONSTRUCTOR
-Game::Game(int wordLength, bool showWordCount, list<string> potWords) {
+Game::Game(int wordLength, bool showWordCount, vector<string> potWords) {
     this->wordLength = wordLength;
     this->showWordCount = showWordCount;
     this->potWords = potWords;
@@ -54,18 +54,24 @@ void Game::Guess() {
             }
         }
         trueGuess = guess[0];
-        cout << trueGuess << "\n";
+        // cout << trueGuess << "\n";
         guessedLetters.push_back(trueGuess);
     WordFamily(trueGuess, potWords);
+    winGame = true;
+    for (char letter : wordShowcase) {
+        if (letter == '_') {
+            winGame = false;
+        }
+    }
         numGuesses--;
 }
 
-void Game::WordFamily(char guess, list<string> words) {
+void Game::WordFamily(char guess, vector<string> words) {
     int WordFam[wordLength+1]; //tracks number of words in each category - guess in each index, then no guess
-    list<string> boiledWords; //tracks words that contain the letter
-    list<string> emptyWords; //tracks words that don't contain the letter
-    list<string> returnWords; //The list of strings we'll return
-    map <string, list<string>> wordFamilies; //improved version of WordFam, will track all words with same "index find string"
+    vector<string> boiledWords; //tracks words that contain the letter
+    vector<string> emptyWords; //tracks words that don't contain the letter
+    vector<string> returnWords; //The list of strings we'll return
+    map <string, vector<string>> wordFamilies; //improved version of WordFam, will track all words with same "index find string"
     string indexKey; //key that will be used in the dictionary
     for (int i = 0; i < wordLength+1; i++) {
         WordFam[i] = 0;
@@ -122,9 +128,13 @@ void Game::WordFamily(char guess, list<string> words) {
         }
     }
     // cout << "Num words: " << boiledWords.size() << endl;
-    cout << "Num words: " << words.size() << endl;
+    // 
+    // cout << "Num words: " << words.size() << endl;
+    // 
     // cout << "Biggest Subgroup Size: " << *max_element(WordFam , WordFam+wordLength+1) << endl;
-    cout << "Biggest Subgroup Size: " << returnWords.size() << endl;
+
+    //cout << "Biggest Subgroup Size: " << returnWords.size() << endl;
+
     // int* targetPtr = find(&WordFam[0], WordFam + wordLength+1, *max_element(WordFam , WordFam+wordLength+1));
     // int targetIndex = targetPtr-WordFam;
     // cout << targetIndex << " " << wordLength << endl;

@@ -17,16 +17,17 @@ private:
     //protected:
     int wordLength;
     // int numGuesses = 15;
-    list<char> guessedLetters;
-    //char wordShowcase[wordLength];
-    list<string> potWords;
-    void WordFamily(char letter, list<string> words);
+    vector<char> guessedLetters;
+    //char wordShowcase[wordLength];s
+    void WordFamily(char letter, vector<string> words);
 public:
     int numGuesses = 15;
     // list<char> wordShowcase;
     vector<char> wordShowcase;
+    bool winGame = false;
+    vector<string> potWords;
 
-    Game(int wordLength, bool showWordCount, list<string> potWords);
+    Game(int wordLength, bool showWordCount, vector<string> potWords);
 
     void GetInfo();
 

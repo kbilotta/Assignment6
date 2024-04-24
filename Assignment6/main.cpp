@@ -7,7 +7,7 @@
 
 using namespace std;
 
-list<string> listLengthFilter(list<string> editList, int wordLength) {
+vector<string> listLengthFilter(vector<string> editList, int wordLength) {
     ifstream dictionary ("testDictionary.txt");
     string myString;
 
@@ -46,7 +46,7 @@ int checkInput(const string& input) {
 
 int main()
 {
-    list<string> words;
+    vector<string> words;
     string showWordCount;
     bool trueShowWordCount;
     string answerLength;
@@ -83,10 +83,24 @@ int main()
 
     Game game(trueAnswerLength, trueShowWordCount, words);
     while (game.numGuesses > 0) {
+        if (game.winGame) {
+            break;
+        }
         game.GetInfo();
         game.Guess();
     }
-    // game.GetInfo();
+    if (!game.winGame) {
+        //add LoseGame function
+        cout << "Sorry! You lost!" << endl;
+        int randomIndex = rand() % game.potWords.size();
+        string randomWord = game.potWords[randomIndex];
+        //Find way to capitalize random word
+        cout << "The correct word was: " << randomWord << endl;
+    }
+    else {
+        cout << "WHAT?!" << endl;
+        cout << "I mean, congratulations! You won, I guess." << endl;
+    }
 
     return 0;
 }
