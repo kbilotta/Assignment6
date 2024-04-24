@@ -116,7 +116,7 @@ void Game::WordFamily(char guess, list<string> words) {
         //below code should update wordShowcase with word family
         //don't need it in the above statement if nothing changes
         for (int i = 0; i < selectedFamily.length()-1; i++) {
-            wordShowcase[selectedFamily[i]] = toupper(guess);
+            wordShowcase[int(selectedFamily[i])] = toupper(guess);
         }
     }
     // cout << "Num words: " << boiledWords.size() << endl;
