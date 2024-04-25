@@ -8,7 +8,7 @@
 using namespace std;
 
 vector<string> listLengthFilter(vector<string> editList, int wordLength) {
-    ifstream dictionary ("testDictionary.txt");
+    ifstream dictionary ("dictionary.txt");
     string myString;
 
     if (dictionary.is_open()) {

@@ -14,7 +14,6 @@ Game::Game(int wordLength, bool showWordCount, vector<string> potWords) {
     this->potWords = potWords;
     for (int i = 0; i < wordLength; i++) {
         this->wordShowcase.push_back('_');
-        cout <<"I have made the showcase\n";
     }
 }
 
@@ -124,7 +123,7 @@ void Game::WordFamily(char guess, vector<string> words) {
         //don't need it in the above statement if nothing changes
         for (int i = 0; i < selectedFamily.length(); i++) {
             this->wordShowcase[stoi(selectedFamily.substr(i,1))] = toupper(guess);
-            cout << "Showcase Index " << stoi(selectedFamily.substr(i,1)) << " Fill with " << toupper(guess) <<"\n";
+            //cout << "Showcase Index " << stoi(selectedFamily.substr(i,1)) << " Fill with " << toupper(guess) <<"\n";
         }
     }
     // cout << "Num words: " << boiledWords.size() << endl;
