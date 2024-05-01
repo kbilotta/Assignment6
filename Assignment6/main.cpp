@@ -105,9 +105,10 @@ int main()
         int randomIndex = rand() % game.potWords.size();
         string randomWord = game.potWords[randomIndex];
         //Find way to capitalize random word
+        cout << "The correct word was: ";
         for (int x=0; x<randomWord.length(); x++)
             putchar(toupper(randomWord[x]));
-        cout << "The correct word was: " << randomWord << endl;
+        cout << endl;
     }
     else {
         // win output
