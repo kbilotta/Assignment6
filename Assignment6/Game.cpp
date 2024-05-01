@@ -18,6 +18,7 @@ Game::Game(int wordLength, bool showWordCount, vector<string> potWords) {
 }
 
 void Game::GetInfo() {
+    //Outputs information about the currently running game
     cout << "You have " << numGuesses << " guesses remaining." << endl;
     cout << "Letters Guessed: ";
     for (char letter : guessedLetters) {
@@ -33,18 +34,21 @@ void Game::GetInfo() {
 }
 
 void Game::Guess() {
+    // takes in a guess from the user
     string guess;
     char trueGuess;
     cout << "Guess a Letter: ";
     getline (cin, guess);
     cout << "\n";
         while (guess.length() != 1 || find(guessedLetters.begin(), guessedLetters.end(), guess[0]) != guessedLetters.end()) {
+            // throws an error message if the guess inputted is not a single letter
             if (guess.length() != 1) {
                 cout << "Please try again with a single letter." << endl;
                 cout << "Guess a Letter: ";
                 getline (cin, guess);
                 cout << "\n";
             }
+            // throws an error message if the guess inputted has already been guessed
             if (find(guessedLetters.begin(), guessedLetters.end(), guess[0]) != guessedLetters.end()) {
                 cout << "Already guessed that letter." << endl;
                 cout << "Guess a Letter: ";
@@ -52,16 +56,21 @@ void Game::Guess() {
                 cout << "\n";
             }
         }
+        //if the guess is acceptable, stores it in the "trueGuess" variable
         trueGuess = guess[0];
         // cout << trueGuess << "\n";
+        //adds the newly guessed letter to the list of guessed letters
         guessedLetters.push_back(trueGuess);
+    // updates the number of possible words for the game, following the guess
     WordFamily(trueGuess, potWords);
+    //assume that the game is won, but if there is a letter that hasn't been locked down, update the win condition to false
     winGame = true;
     for (char letter : wordShowcase) {
         if (letter == '_') {
             winGame = false;
         }
     }
+    // reduce the number of remaining guesses
         numGuesses--;
 }
 
